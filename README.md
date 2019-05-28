@@ -175,4 +175,6 @@ cd to project
 
 npm start // to start dev server
 
+index is for global use & App for app use
+
 
