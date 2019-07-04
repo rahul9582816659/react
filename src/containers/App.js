@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import cssClasses from './App.module.css';
-import Person from './Person/Person'
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 
 class App extends Component {
@@ -48,45 +49,24 @@ class App extends Component {
     render() {
 
        let persons = null;
-       let btnClass = '';
 
        if (this.state.showPerson) {
 
-           persons = (
-               <div>
-                   {
-                       this.state.persons.map((person, index) => {
-                           return <Person
-                               key={person.id}
-                               click={() => this.deletePersonHandler(index)}
-                               name={person.name}
-                               age={person.age}
-                               changed={(event) => this.nameChangedHandler(event, person.id)}/>
-                       })
-                   }
-               </div>
-           );
-
-           btnClass = cssClasses.Red;
+           persons = <Persons
+                           persons = {this.state.persons}
+                           clicked = {this.deletePersonHandler}
+                           changed = {this.nameChangedHandler}
+                       />
        }
-
-        const classes = [];
-
-        if (this.state.persons.length <= 2) {
-            classes.push(cssClasses.red);
-        }
-
-        if (this.state.persons.length <= 1) {
-            classes.push(cssClasses.bold);
-        }
 
         return (
             <div className={cssClasses.App}>
 
-                <h1>Welcome to React</h1>
-                <p className={classes.join(' ')}>I'am a React Developer</p>
-
-                <button className={btnClass} onClick={this.togglePersonHandler} >Toggle Person</button>
+                <Cockpit
+                    persons = {this.state.persons}
+                    showPerson = {this.state.showPerson}
+                    toggleButton = {this.togglePersonHandler}
+                />
 
                 {persons}
             </div>
